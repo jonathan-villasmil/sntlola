@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+//admin
+Route::view('/admin', 'admin.admin')->name('admin');
+    //crud users
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users');
+    //crud roles
+    Route::get('/admin/rol', [RoleController::class, 'index'])->name('rol');
+    //crud categories
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('categories');
+    //crud products
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('products');
+
+//users()
+
+Route::view('/', 'welcome');
