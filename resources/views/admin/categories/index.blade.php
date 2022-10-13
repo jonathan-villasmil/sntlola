@@ -10,7 +10,7 @@
 
         <a class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition duration-150 ease-in-out border border-transparent rounded-md dark:text-sky-200 bg-sky-800 hover:bg-sky-700 active:bg-sky-900 focus:outline-none focus:border-sky-900 focus:shadow-outline-sky" href="{{route('categories.create')}}">Nueva categoría</a>
 </header>
-<main class="grid w-full gap-4 px-4 max-w-7xl sm:grid-cols-2 md:grid-cols-3">
+<main class="mx-auto grid w-full  gap-4 px-4 max-w-7xl sm:grid-cols-2 md:grid-cols-3">
     @foreach ($categories as $item)
 
         <div class="max-w-3xl px-4 py-2 space-y-4 bg-white rounded shadow dark:bg-slate-800">

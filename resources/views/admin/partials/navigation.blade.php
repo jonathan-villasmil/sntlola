@@ -205,11 +205,28 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
                             Roles 
                         </a>
                         <a href="{{ route('categories.index') }}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('categories.*') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
-                            categories
+                            Categories
                         </a>
-                        <a href="{{ route('products') }}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('products') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
+                        <a href="{{ route('products.index') }}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('products.index') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
                             Products
                         </a>
+                        @guest
+                            <a href="{{ route('register') }}" class="lg:px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('register') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
+                                Register
+                            </a>
+                            <a href="{{ route('login') }}" class="lg:px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('login') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
+                                Login
+                            </a>   
+                        
+                        @endguest
+
+                        @auth
+                            <a href="" class="lg:px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('login') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">{{Auth::user()->name}}</a>
+                            <form action="{{route('logout')}}" method="POST">
+                                @csrf
+                                <button class="lg:px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('login') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">Logout</button>
+                            </form>
+                        @endauth
                     </div>
                 </div>
             </div>
