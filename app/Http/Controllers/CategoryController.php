@@ -65,7 +65,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-    
         return view('admin/categories.show', ['category' => $category]);
     }
 
@@ -114,7 +113,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-
         return to_route('categories.index')->with('status', 'Categoria borrada!');
     }
 }

@@ -14,9 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();     
+        $products = Product::orderBy('name' ,'asc')->get();     
 
-            return view('admin/products.products', ['products' => $products]);
+            return view('admin/products.index', ['products' => $products]);
     }
 
     /**
