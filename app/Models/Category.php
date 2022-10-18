@@ -21,4 +21,10 @@ class Category extends Model
      * @var array
      */
     protected $fillable = ['name','description','image'];
+
+    public function product(){
+      return $this->hasMany(Product::class);
+    }
+    
+
 }
