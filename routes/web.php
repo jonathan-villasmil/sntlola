@@ -47,12 +47,12 @@ Route::view('/admin', 'admin.admin')->name('admin');
     
     //crud products
     Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/admin/products/create',[CategoryController::class, 'create'])->name('products.create');
-    Route::post('/admin/products', [CategoryController::class, 'store'])->name('products.store');
-    Route::get('/admin/products/{product}', [CategoryController::class, 'show'])->name('products.show');
-    Route::get('/admin/products/{product}/edit', [CategoryController::class, 'edit'])->name('products.edit');
-    Route::patch('/admin/products/{product}', [CategoryController::class, 'update'])->name('products.update');
-    Route::delete('/admin/products/{product}', [CategoryController::class, 'destroy'])->name('products.destroy');
+    Route::get('/admin/products/create',[ProductController::class, 'create'])->name('products.create');
+    Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/admin/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::patch('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 
 //login 

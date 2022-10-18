@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveCategoryRequest extends FormRequest
+class SaveProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,7 +12,7 @@ class SaveCategoryRequest extends FormRequest
      * @return bool
      */
     public function authorize()
-    {   
+    {
         // if(user is admin){} 
         return true;
     }
@@ -24,13 +24,10 @@ class SaveCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        //diferenciar reglas de validación
-        // if($this->isMethod('PATCH')){
-        //     return[];
-        // }
         return [
             'name'=> ['required', 'min:4'],
-            
+            'category_id' => ['required'],
+            'description' =>['required', 'min:4']
         ];
     }
 }
