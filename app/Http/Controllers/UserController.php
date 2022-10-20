@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveUsersRequest;
+use App\Http\Requests\UpdateUsersRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,15 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = [
-            ['title' => 'jonathan'],
-            ['title' => 'pedro'],
-            ['title' => 'juan'],
-            ['title' => 'carlos'],
-            ['title' => 'marcos']
-            ];
-
-            return view('admin/users.users', ['users' => $users]);
+        $users = User::all();
+            return view('admin/users.index', ['users' => $users]);
     }
 
     /**
@@ -31,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/users.create', ['users' => new User]);
     }
 
     /**
@@ -40,9 +36,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveUsersRequest $request)
     {
-        //
+        $input = $request->validated();
+        $input['password'] = bcrypt($request->password);
+        User::create($input);
+        return redirect()->route('users.index')->with('status', 'User Created!');
     }
 
     /**
@@ -51,9 +50,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('admin/users.show', ['user' => $user]);
     }
 
     /**
@@ -62,9 +61,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('admin/users.edit', ['users' => $user]);
     }
 
     /**
@@ -74,9 +73,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUsersRequest $request, User $user)
     {
-        //
+        
+        $user->update($request->validated());
+        if($request->filled('password')){
+            $request->merge(['password' => bcrypt($request->password)]);
+        }
+        unset($request['id']);
+		if (!$request->password) {
+	        unset($request['password']);
+		}
+        unset($request['password_confirmation']);
+
+        session()->flash('status', 'User Updated!');
+
+        return redirect()->route('users.show', $user);
     }
 
     /**
@@ -85,8 +97,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return to_route('users.index')->with('status', 'Usuario borrado!');
     }
 }

@@ -30,7 +30,13 @@ use Illuminate\Support\Facades\Route;
 // Route::view('/admin', 'admin.admin')->name('admin')->middleware('auth'); rutas con autenticación
 Route::view('/admin', 'admin.admin')->name('admin');
     //crud users
-    Route::get('/admin/users', [UserController::class, 'index'])->name('users');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/create',[UserController::class, 'create'])->name('users.create');
+    Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/admin/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     //crud roles
     Route::get('/admin/rol', [RoleController::class, 'index'])->name('rol');
    
@@ -64,4 +70,5 @@ Route::view('/register', 'auth.register')->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 //users()
 
+//vistas para los usuarios logeados
 Route::view('/', 'welcome');

@@ -37,21 +37,27 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     {
+        
         $credentials = $request->validate([
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ]);
-        if (!Auth::attempt($credentials , $request->boolean('remember')) ) {
+
+        if (!Auth::attempt($credentials) ) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed')
             ]);
+            
+        }
 
+        if(!$request->boolean('remeber')){
             $request->session()->regenerate();
-
-            return redirect()->intented()->with('status', 'You are logged in');
-
         }
         
+            
+        // return to_route('admin')->with('status', 'You are logged in');
+        //return redirect()->intented()->with('status', 'You are logged in');
+        return to_route('admin')->with('status', 'You are logged in');
 
     }
 
