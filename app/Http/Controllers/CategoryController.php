@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         // session()->flash('status', 'Category Created!');
 
-        return redirect()->route('admin/categories.index')->with('status', 'Category Created!');
+        return redirect()->route('categories.index')->with('status', 'Category Created!');
         // return to_route('categories.index'); hace lo mismo que(redirect()->route('categories.index'))
 
     }
