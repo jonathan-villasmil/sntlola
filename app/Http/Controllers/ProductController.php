@@ -16,6 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        //$this->authorize('haveaccess','product.index');
         $products = Product::orderBy('name' ,'asc')->get();     
 
             return view('admin/products.index', ['products' => $products]);
@@ -28,6 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {   
+        $this->authorize('haveaccess','product.create');
         $category = Category::all();
         $product = new Product;
         // dd($product);
@@ -45,6 +47,7 @@ class ProductController extends Controller
      */
     public function store(SaveProductRequest $request, Category $category)
     {
+        $this->authorize('haveaccess','product.store');
         $validateData= $request->validated();
         
         // dd($validateData);
@@ -61,6 +64,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $this->authorize('haveaccess','product.show');
         return view('admin/products.show', ['product' => $product]);
     }
 
@@ -72,6 +76,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $this->authorize('haveaccess','product.edit');
         $category = Category::all();
         return view('admin/products.edit', ['product' => $product, 'category' => $category]);
     }
@@ -85,6 +90,7 @@ class ProductController extends Controller
      */
     public function update(SaveProductRequest $request, Product $product)
     {
+        $this->authorize('haveaccess','product.update');
         $product->update($request->validated());
 
         session()->flash('status', 'Product Updated!');
@@ -100,6 +106,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('haveaccess','product.destroy');
         $product->delete();
         return to_route('products.index')->with('status', 'Product deleted!');
     }

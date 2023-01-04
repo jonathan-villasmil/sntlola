@@ -11,8 +11,14 @@
         <h2 class="text-xl text-slate-600 dark:text-slate-300 hover:underline">{{$user->name}}</h2>
         <h2 class="text-xl text-slate-600 dark:text-slate-300 hover:underline">{{$user->email}}</h2>
         <h2 class="text-xl text-slate-600 dark:text-slate-300 hover:underline">{{$user->id}}</h2>
+        @isset($user->roles[0]->name) 
+            <h2 class="text-xl text-slate-600 dark:text-slate-300 hover:underline">{{$user->roles[0]->name}}</h2>
+        @endisset
+
+
         {{-- <h2>{{$product->image}}</h2> --}}
     </div>
     
     
 @endsection
+

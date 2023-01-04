@@ -9,11 +9,17 @@
 
 <main class="mx-auto grid w-full  gap-4 px-4 max-w-7xl sm:grid-cols-2 md:grid-cols-3">
     @foreach ($users as $item)
+   {{-- {{dd($users)}} --}}
     <div class="max-w-3xl px-4 py-2 space-y-4 bg-white rounded shadow dark:bg-slate-800">
         <h4 class="text-xl text-slate-600 dark:text-slate-300 hover:underline"><a href="{{route('users.show', $item->id)}}">{{$item->name}}</a></h4>
         {{-- pinto el id de la categoria --}}
-        <h4>{{$item->email}}</h4>
-        <h4>{{$item->id}}:Item_Id</h4>
+        <h4>Email: {{$item->email}}</h4>
+        <h4>Item_Id: {{$item->id}}</h4>
+        <h4>Role:
+            @isset( $item->roles[0]->name )
+                {{ $item->roles[0]->name}}
+            @endisset
+        </h4>
         <div class="flex justify-between">
             <a class="inline-flex items-center text-xs font-semibold tracking-widest text-center uppercase transition duration-150 ease-in-out dark:text-slate-400 text-blue-600 hover:text-slate-600 dark:hover:text-slate-500 focus:outline-none focus:border-slate-200" href="{{route('users.edit', $item)}}">Editar</a>
 

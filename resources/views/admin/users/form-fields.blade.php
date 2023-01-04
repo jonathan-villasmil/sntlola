@@ -1,6 +1,6 @@
 <div class="space-y-4">
     <label class="flex flex-col font-serif text-slate-600 dark:text-slate-400" for="">Name
-        <input class="rounded-md shadow-sm border-slate-300 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 focus:ring focus:ring-slate-300 dark:focus:ring-slate-800 focus:ring-opacity-50 dark:focus:border-slate-700 focus:border-slate-300 dark:bg-slate-800 dark:border-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400" type="text" name="name" id="" value="{{old('name',$users->name)}}">
+        <input class="rounded-md shadow-sm border-slate-300 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 focus:ring focus:ring-slate-300 dark:focus:ring-slate-800 focus:ring-opacity-50 dark:focus:border-slate-700 focus:border-slate-300 dark:bg-slate-800 dark:border-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400" type="text" name="name" id="" value="{{old('name',$user->name)}}">
         
         @error('name')
            <small  class="font-bold text-red-500/80">{{$message}}</small>
@@ -8,7 +8,7 @@
     </label>
 
     <label class="flex flex-col font-serif text-slate-600 dark:text-slate-400" for="">Email
-        <input class="rounded-md shadow-sm border-slate-300 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 focus:ring focus:ring-slate-300 dark:focus:ring-slate-800 focus:ring-opacity-50 dark:focus:border-slate-700 focus:border-slate-300 dark:bg-slate-800 dark:border-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400" type="email" name="email" id="" value="{{old('email',$users->email)}}">
+        <input class="rounded-md shadow-sm border-slate-300 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 focus:ring focus:ring-slate-300 dark:focus:ring-slate-800 focus:ring-opacity-50 dark:focus:border-slate-700 focus:border-slate-300 dark:bg-slate-800 dark:border-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400" type="email" name="email" id="" value="{{old('email',$user->email)}}">
         
         @error('email')
            <small  class="font-bold text-red-500/80">{{$message}}</small>
@@ -30,6 +30,21 @@
            <small  class="font-bold text-red-500/80">{{$message}}</small>
         @enderror
     </label>
+
+    <select class="rounded-md shadow-sm border-slate-300 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 focus:ring focus:ring-slate-300 dark:focus:ring-slate-800 focus:ring-opacity-50 dark:focus:border-slate-700 focus:border-slate-300 dark:bg-slate-800 dark:border-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400 mb-4" name="roles[]" id="roles">
+        <option value="invitado" selected>Selecciona el rol</option>
+        @foreach ($roles as $role)
+        
+            <option value="{{$role->id}}"
+                @isset($user->roles[0]->name)
+                    @if ($role->name == $user->roles[0]->name)
+                        selected
+                    @endif
+                @endisset
+            >{{$role->name}}</option>
+        @endforeach
+        
+    </select>
 
     {{-- Role Id --}}
     {{-- <select name="role_id">

@@ -6,10 +6,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-
-
-
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 // Route::view('/admin', 'admin.admin')->name('admin')->middleware('auth'); rutas con autenticación
 Route::view('/admin', 'admin.admin')->name('admin');
     //crud users
+    // Route::resource('/admin/users', [UserController::class], ['except'=>['create', 'store']])->names('users');
+
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/admin/users/create',[UserController::class, 'create'])->name('users.create');
     Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
@@ -37,8 +40,34 @@ Route::view('/admin', 'admin.admin')->name('admin');
     Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    
     //crud roles
-    Route::get('/admin/rol', [RoleController::class, 'index'])->name('rol');
+
+    Route::get('/test', function () 
+    {
+        $user = User::find(1);
+
+        //$user->roles()->sync([3]);
+        Gate::authorize('haveaccess', 'roles.index' );
+        return $user;
+        //return $user->havePermission('roles.index');
+    });
+
+    //Route::resource('/admin/roles',[RoleController::class])->names('roles');
+    Route::get('/admin/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/admin/roles/create',[RoleController::class, 'create'])->name('roles.create');
+    Route::post('/admin/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/admin/roles/{role}', [RoleController::class, 'show'])->name('roles.show');
+    Route::get('/admin/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::patch('/admin/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/admin/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+    
+
+
+
+
+
    
     //crud categories
     Route::get('/admin/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -48,8 +77,7 @@ Route::view('/admin', 'admin.admin')->name('admin');
     Route::get('/admin/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::patch('/admin/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-    
-    // Route::resource('categories', [CategoryController::class]);
+    // Route::resource('categories', [CategoryController::class])->names('categories');
     
     //crud products
     Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
@@ -65,10 +93,13 @@ Route::view('/admin', 'admin.admin')->name('admin');
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 //register
 Route::view('/register', 'auth.register')->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
-//users()
 
+//role(1(cocinero-jefe de cocina))
+
+//users()
 //vistas para los usuarios logeados
 Route::view('/', 'welcome');

@@ -26,7 +26,6 @@ class SaveUsersRequest extends FormRequest
     {
         return [
             'name'=> ['required', 'min:4'],
-            // 'role_id' => ['required'],
             'email' =>['required', 'email', 'unique:users,email'],
             'password'=> ['required', 'min:8', 'confirmed'],
             

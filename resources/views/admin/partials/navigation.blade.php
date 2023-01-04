@@ -201,7 +201,7 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
                         <a href="{{route('users.index')}}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('users') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
                             Users
                         </a>
-                        <a href="{{route('rol')}}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('rol') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
+                        <a href="{{route('roles.index')}}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('roles') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">
                             Roles 
                         </a>
                         <a href="{{ route('categories.index') }}" class="px-3 py-2 text-sm font-medium rounded-md hover:text-sky-600 dark:hover:text-white {{ request()->routeIs('categories.*') ? 'text-sky-600 dark:text-white' : 'text-slate-400' }}">

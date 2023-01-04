@@ -8,8 +8,8 @@
 
 </div>
     
-    <form class="max-w-xl px-8 py-4 mx-auto bg-white rounded shadow dark:bg-slate-800" action="{{route('users.update', $users->id )}}" method="POST">
-         @method('patch')
+    <form class="max-w-xl px-8 py-4 mx-auto bg-white rounded shadow dark:bg-slate-800" action="{{route('users.update', $user->id )}}" method="POST">
+         @method('PATCH')
          @csrf
         @include('/admin/users.form-fields')
         <button class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition duration-150 ease-in-out border border-2 border-transparent rounded-md dark:text-sky-200 bg-green-800 hover:bg-green-700 active:bg-sky-700 focus:outline-none focus:border-sky-500" type="submit">Enviar</button>
