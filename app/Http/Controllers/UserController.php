@@ -17,11 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$this->authorize('haveaccess','user.index');
-        $users = User::with('roles')->orderBy('id', 'Desc')->paginate(20);
-        //$roles = Role::orderBy('id', 'Desc')->paginate(10);
-        //dd($users);
-        //return $users;
+        $this->authorize('haveaccess','user.index');
+        $users = User::with('roles')->orderBy('id', 'Desc')->get();
+        //dd($users->id);
+        $roles = Role::orderBy('id', 'Desc')->paginate(10);
+        //dd($roles);
         return view('admin/users.index', compact('users'));
     }
 
@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //$this->authorize('haveaccess','user.create');
+        $this->authorize('haveaccess','user.create');
         $roles  = Role::all();
         $user = new User;
         //$user->roles()->assignRole("invitado"); // asignar role a usuario, y en el formulario seleccionar por defecto Invitado
@@ -83,7 +83,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //$this->authorize('haveaccess','user.show');
+        $this->authorize('haveaccess','user.show');
         $roles = Role::orderBy('name')->get();
         return view('admin/users.show', compact('user', 'roles'));
     }
@@ -96,7 +96,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //$this->authorize('haveaccess','user.edit');
+        $this->authorize('haveaccess','user.edit');
 
         $roles = Role::orderBy('name')->get();
 
@@ -142,6 +142,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('haveaccess','user.destroy');
         $user->delete();
         return to_route('users.index')->with('status', 'Usuario borrado!');
     }

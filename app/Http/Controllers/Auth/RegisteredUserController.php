@@ -30,8 +30,9 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        //$user->assignRole('cliente');
-        $user->roles()->attach(Role::where('name', 'user')->first());
+        
+        //$user->roles()->store('User');
+        $user->roles()->attach(Role::where('name', 'User')->first());
 
         return to_route('login')->with('status', 'Your account has been created');
     }

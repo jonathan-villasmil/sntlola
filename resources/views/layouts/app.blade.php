@@ -7,9 +7,9 @@
     <title>SantaLola - @yield('title')</title>
     @vite(['resources/css/app.css' , 'resources/js/app.js'])
 </head>
-<body class="antialiased bg-slate-300 dark:bg-slate-900">
-    
-       @include('admin.partials.navigation') 
+<body>
+    <div class="container mx-auto bg-white-300 dark:bg-slate-900 border">
+        @include('admin.partials.navigation') 
         
             @if(session('status'))
                 <div class="max-w-screen-xl px-3 py-2 mx-auto font-bold text-white sm:px-6 lg:px-8 bg-emerald-500 dark:bg-emerald-700">
@@ -17,8 +17,9 @@
                 </div>
             @endif 
             
-       @yield('content') 
-    
+       @yield('content')
+    </div>
+        
     
 
 </body>

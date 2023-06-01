@@ -30,6 +30,7 @@ class PermissionSeeder extends Seeder
         if($useradmin){
             $useradmin->delete();   
         }
+
         $useradmin= User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
@@ -42,6 +43,15 @@ class PermissionSeeder extends Seeder
             'description'=> 'Administrador',
             'full-access'=> 'yes',
         ]);
+
+        //role User
+        $roleuser = Role::create([
+            'name' => 'User',
+            'description' => 'User',
+            'full-access' => 'no',
+        ]);
+
+        //role 
 
         //tables role_user
         $useradmin->roles()->sync([$roleadmin->id]);
@@ -175,8 +185,6 @@ class PermissionSeeder extends Seeder
         ]);
         
         $permission_all[] = $permission->id;
-
-
 
         //tables permission_role
         //$roleadmin->permissions()->sync($permission_all);

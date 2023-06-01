@@ -62,12 +62,6 @@ Route::view('/admin', 'admin.admin')->name('admin');
     Route::patch('/admin/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/admin/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
-    
-
-
-
-
-
    
     //crud categories
     Route::get('/admin/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -88,11 +82,20 @@ Route::view('/admin', 'admin.admin')->name('admin');
     Route::patch('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+    //search products
+    Route::post('/admin/products/search', [ProductController::class, 'search'])->name('products.search');
+
+
+
+    Route::get('/admin/stocks', [ProductController::class, 'indexStocks'])->name('products.stocks');
+    Route::patch('/admin/stocks/stocksUpdate', [ProductController::class, 'updatedStock'])->name('products.stocksUpdate');
+    Route::get('admin/stocks/quantitiesQuestions', [ProductController::class, 'questionsProductQuantities'])->name('products.questionsQuantities');
 
 //login 
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
 //register
 Route::view('/register', 'auth.register')->name('register');

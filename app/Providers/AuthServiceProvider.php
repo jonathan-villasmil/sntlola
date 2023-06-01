@@ -32,5 +32,11 @@ class AuthServiceProvider extends ServiceProvider
             return $user->havePermission($perm);
             //return $perm;
         });
+        // Gate::define('haveaccess', function(User $user, $perm){
+        //     //dd($perm);
+
+        //     return $user->havePermission($perm);
+        //     //return $perm;
+        // });
     }
 }

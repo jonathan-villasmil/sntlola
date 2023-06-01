@@ -12,6 +12,7 @@ class Product extends Model
     static $rules = [
 		'category_id' => 'required',
 		'name' => 'required',
+    'stock' => 'required'
     ];
 
     protected $perPage = 20;
@@ -21,9 +22,10 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['category_id','name','description','image'];
+    protected $fillable = ['category_id','name','description','image','stock'];
 
     public function category(){
       return $this->belongsTo(Category::class);
     }
+
 }

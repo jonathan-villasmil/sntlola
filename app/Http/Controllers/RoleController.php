@@ -22,8 +22,8 @@ class RoleController extends Controller
     public function index()
     {
         Gate::authorize('haveaccess', 'roles.index');
-
-        $role = Role::orderBy('id', 'Desc')->paginate(10);
+        $role = Role::with('permissions')->paginate();
+        //$role = Role::orderBy('id', 'Desc')->paginate(10);
     
         return view('admin/roles.index', compact('role'));
     }
@@ -53,7 +53,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         Gate::authorize('haveaccess', 'roles.create');
-
+        //dd($request->all());
         $request->validate([
             'name'=> 'required|max:50|unique:roles,name',
             'description'=>'required|max:50',
@@ -61,7 +61,7 @@ class RoleController extends Controller
         ]);
 
         $role = Role::create($request->all());
-
+        
         //if($request->get('permission')){
             //return $request->all();
             $role->permissions()->sync($request->get('permission'));
@@ -103,8 +103,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //Gate::authorize('haveaccess', 'roles.edit');
-        $this->authorize('haveaccess', 'roles.edit');
+        Gate::authorize('haveaccess', 'roles.edit');
+        //$this->authorize('haveaccess', 'roles.edit');
         $permission_role =[];
 
         foreach($role->permissions as $permission){
@@ -126,7 +126,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         //Gate::authorize('haveaccess', 'roles.edit');
-        $this->authorize('haveaccess', 'roles.edit');
+        //$this->authorize('haveaccess', 'roles.edit');
         $request->validate([
             'name'=> 'required|max:50|unique:roles,name,'.$role->id,
             'description'=>'required|max:50',
@@ -154,7 +154,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //Gate::authorize('haveaccess', 'roles.destroy');
+        Gate::authorize('haveaccess', 'roles.destroy');
         $this->authorize('haveaccess', 'roles.destroy');
         
         $role->delete();
